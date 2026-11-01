@@ -1,0 +1,3 @@
+['A', 'A:min', 'Ab', 'Ab:min', 'B', 'B:min', 'Bb', 'Bb:min', 'C', 'C#', 'C#:min', 'C:min', 'D', 
+'D#', 'D#:min', 'D:min', 'Db', 'Db:min', 'E', 'E:min', 'Eb', 'Eb:min', 'F', 'F#', 'F#:min', 'F:min', 
+'G', 'G#', 'G#:min', 'G:min', 'Gb', 'Gb:min', 'N']
