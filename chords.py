@@ -27,11 +27,12 @@ for path in lab_paths:
                                            split_cols.str[0])
 
     #make copy of the path for new chord file with simplified chords
-    path_copy = path.strip(".lab")
-    path = path_copy + "_simplified.csv"
+    path_copy = Path(path).with_suffix("")
+    path = str(path_copy) + "_simplified.csv"
+    print(path)
 
     #print modified dataframe to .csv file
-    chord_df_copy.to_csv(path, sep=',', header=False, index=False)
+    chord_df_copy.to_csv(path, sep=' ', header= None, index=False)
     
     #update chord set for tracking used chords for debugging
     chords.update(chord_df_copy.iloc[:,2])
