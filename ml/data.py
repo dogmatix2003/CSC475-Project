@@ -40,7 +40,7 @@ def simplified_csv_for(lab_path):
 
 def read_segments(csv_path):
     """Simplified CSV (start,end,label; no header) -> DataFrame with start, end, label, cls."""
-    df = pd.read_csv(csv_path, header=None, names=["start", "end", "label"], keep_default_na=False)
+    df = pd.read_csv(csv_path, header=None, names=["start", "end", "label"], sep=r"[,\s]+", engine="python", keep_default_na=False)# works with commas or spaces
     df["cls"] = [label_to_class(l) for l in df["label"]]
     return df
 
