@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-outputPath = Path(sys.path[0] + "/Template Predictions" + "/chord_template_predictions.txt")
+outputPath = Path(sys.path[0] + "/Template Predictions")
 #set up correct path to Databases folder
 path = Path(sys.path[0] + "/Databases")
 
@@ -115,17 +115,21 @@ def template_recognition(x, templates, samplingRate, hopLength):
 
 templates, chordNames = chord_templates()
 
-with open(outputPath, "w") as output:
 
-    #parse through .json files and extract relevant chord info
-    for file in chord_files:
-        #opening each json file and accessing the dict
-        current_file = json.load(open(file, "r", encoding="utf-8"))
 
-        #grabbing the song name to properly access the dict
-        songName = str(file)
-        songName = songName.removeprefix((str(path) + '/').replace("\\", '/'))
-        songName = songName.removesuffix('.json')
+#parse through .json files and extract relevant chord info
+for file in chord_files:
+    #opening each json file and accessing the dict
+    current_file = json.load(open(file, "r", encoding="utf-8"))
+
+    #grabbing the song name to properly access the dict
+    songName = str(file)
+    songName = songName.removeprefix((str(path) + '/').replace("\\", '/'))
+    songName = songName.removesuffix('.json')
+
+    outputFile = Path(sys.path[0] + "/Template Predictions" + f"/{songName}_Predictions.txt")
+
+    with open(outputFile, "w") as output:
 
         #Writing songname to output to separate groups of predictions
         output.write(f"{songName}\n")
@@ -141,6 +145,7 @@ with open(outputPath, "w") as output:
         #Writing all predictions to output file chord_template_predictions.txt
         for timestamp, chord in predictions:
                 output.write(f"{timestamp:.2f}s: {chord}\n")
+    
 
 
 output.close()
