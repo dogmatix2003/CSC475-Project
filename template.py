@@ -82,8 +82,8 @@ def create_frame_labels(songData, cqtVectors):
     #removing any frames that didnt match data points
     valid = y != -1
 
-    x = x[valid+1]
-    y = y[valid+1]
+    x = x[valid]
+    y = y[valid]
 
     return x, y
 
@@ -144,8 +144,8 @@ for file in chord_files:
         #Writing all predictions to output file chord_template_predictions.txt
         for timestamp, chord in predictions:
                 output.write(f"{timestamp:.2f}s: {chord}\n")
-       
-
+    
+    
 output.close()
 
 
