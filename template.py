@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-outputPath = Path(sys.path[0] + "/chord_template_predictions.txt")
+outputPath = Path(sys.path[0] + "/Template Predictions" + "/chord_template_predictions.txt")
 #set up correct path to Databases folder
 path = Path(sys.path[0] + "/Databases")
 
@@ -126,6 +126,9 @@ with open(outputPath, "w") as output:
         songName = str(file)
         songName = songName.removeprefix((str(path) + '/').replace("\\", '/'))
         songName = songName.removesuffix('.json')
+
+        #Writing songname to output to separate groups of predictions
+        output.write(f"{songName}\n")
 
         count = 0
         hopLength = current_file[songName]["metadata"]["hop_length"]
