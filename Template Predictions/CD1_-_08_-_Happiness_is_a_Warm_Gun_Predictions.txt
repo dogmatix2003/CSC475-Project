@@ -1520,7 +1520,7 @@ CD1_-_08_-_Happiness_is_a_Warm_Gun
 140.99s: Gm
 141.08s: Gm
 141.18s: G
-141.27s: Gm
+141.27s: G
 141.36s: G
 141.46s: G
 141.55s: C

@@ -23,7 +23,7 @@ CD2_-_08_-_Revolution_1
 1.95s: G#m
 2.04s: Am
 2.14s: Am
-2.23s: Am
+2.23s: A
 2.32s: D
 2.41s: F#m
 2.51s: D#

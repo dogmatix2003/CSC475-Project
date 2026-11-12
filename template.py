@@ -34,7 +34,7 @@ def chord_templates():
         #major chords
         major = np.zeros(12)
         for interval in majorIntervals:
-            major[(root + interval) % 12] = 12
+            major[(root + interval) % 12] = 1
 
         majorName = NOTE_NAMES[root]
         templates[majorName] = major

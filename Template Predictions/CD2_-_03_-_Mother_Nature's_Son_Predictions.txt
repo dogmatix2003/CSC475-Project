@@ -61,7 +61,7 @@ CD2_-_03_-_Mother_Nature's_Son
 5.48s: D
 5.57s: D
 5.67s: D
-5.76s: Dm
+5.76s: D
 5.85s: Dm
 5.94s: C#m
 6.04s: Em
