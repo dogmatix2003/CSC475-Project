@@ -56,37 +56,6 @@ def chord_templates():
 
     return templates, chordNames
 
-#giving each cqt frame a label
-def create_frame_labels(songData, cqtVectors):
-    x = np.asarray(cqtVectors, dtype=np.float32)
-    
-    samplingRate = songData["metadata"]["sampling_rate"]
-    hopLength = songData["metadata"]["hop_length"]
-
-    data = songData["data"]
-
-    #timestamp of each label
-    frameTimes = np.arange(len(x)) * hopLength / samplingRate
-
-    y = np.full(len(x), -1, dtype=np.int64)
-
-    #matching labels to data points
-    for dataPoint in data:
-        start = dataPoint["start time"]
-        end = dataPoint["end time"]
-        chordLabel = dataPoint["chord map"]
-
-        mask = (frameTimes >= start) & (frameTimes <= end)
-
-        y[mask] = chordLabel
-
-    #removing any frames that didnt match data points
-    valid = y != -1
-
-    x = x[valid]
-    y = y[valid]
-
-    return x, y
 
 def template_recognition(x, templates, samplingRate, hopLength, nonChordMask):
     chordNames = list(templates.keys())
@@ -132,9 +101,6 @@ for file in chord_files:
 
     with open(outputFile, "w") as output:
 
-        #Writing songname to output to separate groups of predictions
-        output.write(f"{songName}\n")
-
         count = 0
         hopLength = current_file[songName]["metadata"]["hop_length"]
         samplingRate = current_file[songName]["metadata"]["sampling_rate"]
@@ -153,17 +119,13 @@ for file in chord_files:
         #then transposing it back
         x = x.T
         
-
-        x, y = create_frame_labels(current_file[songName], x)
-        
         predictions = template_recognition(x, templates, samplingRate, hopLength, nonChordMask)
 
         #Writing all predictions to output file chord_template_predictions.txt
         for timestamp, chord in predictions:
                 output.write(f"{timestamp:.2f}s: {chord}\n")
+
     
-
-
     
 output.close()
 
