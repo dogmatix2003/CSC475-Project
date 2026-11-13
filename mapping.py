@@ -43,7 +43,9 @@ lab_paths = [file.as_posix() for file in chord_path.rglob("*.csv") if file.is_fi
 
 for audio_path in audio_paths:
     track_id = Path(audio_path).stem
-
+    train_flag = 0
+    if track_id.startswith("CD"):
+        train_flag = 1
     # Set path to output json file with song title
     output_path = Path("Databases/" + track_id + ".json")
 
@@ -96,7 +98,8 @@ for audio_path in audio_paths:
                     "sampling_rate": TARGET_SR,
                     "hop_length": HOP_LENGTH,
                     "frame rate": FRAME_RATE,
-                    "total_frames": total_frames
+                    "total_frames": total_frames,
+                    "train": train_flag,
                     },
                 "data": [],
                 "features_X": np.round(X, 4).tolist(),      # Aligned 2D list of chroma vectors
