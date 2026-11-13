@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+import libfmp.c3
 
 outputPath = Path(sys.path[0] + "/Template Predictions")
 #set up correct path to Databases folder
@@ -75,7 +76,7 @@ def create_frame_labels(songData, cqtVectors):
         end = dataPoint["end time"]
         chordLabel = dataPoint["chord map"]
 
-        mask = (frameTimes >= start) & (frameTimes < end)
+        mask = (frameTimes >= start) & (frameTimes <= end)
 
         y[mask] = chordLabel
 
@@ -87,20 +88,21 @@ def create_frame_labels(songData, cqtVectors):
 
     return x, y
 
-def template_recognition(x, templates, samplingRate, hopLength):
+def template_recognition(x, templates, samplingRate, hopLength, nonChordMask):
     chordNames = list(templates.keys())
 
     #turning templates into a matrix
     templateMatrix = np.array([templates[name] for name in chordNames])
 
     predictions = []
-
+    
     for i, frame in enumerate(x):
         
         timestamp = i * hopLength / samplingRate
         
         #handling nonchords
-        if np.linalg.norm(frame) < 0.01:
+        
+        if nonChordMask[i]:
             predictions.append((timestamp,"N"))
             continue
 
@@ -137,14 +139,31 @@ for file in chord_files:
         hopLength = current_file[songName]["metadata"]["hop_length"]
         samplingRate = current_file[songName]["metadata"]["sampling_rate"]
 
-        x, y = create_frame_labels(current_file[songName], current_file[songName]["features_X"])
+        x = np.asarray(current_file[songName]["features_X"], dtype=np.float32)
+
         
-        predictions = template_recognition(x, templates, samplingRate, hopLength)
+        #transposing x
+        x = x.T
+
+        nonChordMask = np.linalg.norm(x, axis=0) < 0.01
+        
+        #normalizing it
+        x = libfmp.c3.normalize_feature_sequence(x, '2')
+        
+        #then transposing it back
+        x = x.T
+        
+
+        x, y = create_frame_labels(current_file[songName], x)
+        
+        predictions = template_recognition(x, templates, samplingRate, hopLength, nonChordMask)
 
         #Writing all predictions to output file chord_template_predictions.txt
         for timestamp, chord in predictions:
                 output.write(f"{timestamp:.2f}s: {chord}\n")
     
+
+
     
 output.close()
 

@@ -57,7 +57,7 @@ CD2_-_10_-_Savoy_Truffle
 5.11s: E
 5.20s: E
 5.29s: Em
-5.39s: A#
+5.39s: C#m
 5.48s: Bm
 5.57s: Bm
 5.67s: Bm

@@ -3039,7 +3039,7 @@ CD1_-_07_-_While_My_Guitar_Gently_Weeps
 282.08s: Am
 282.17s: Em
 282.26s: A
-282.35s: Em
+282.35s: C#m
 282.45s: Am
 282.54s: E
 282.63s: E

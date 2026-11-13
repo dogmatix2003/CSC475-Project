@@ -17,7 +17,7 @@ CD1_-_01_-_Back_in_the_USSR
 1.39s: G
 1.49s: Gm
 1.58s: G
-1.67s: D#
+1.67s: Em
 1.76s: D#
 1.86s: D#
 1.95s: Em

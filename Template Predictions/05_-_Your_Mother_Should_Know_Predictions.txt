@@ -1,5 +1,5 @@
 05_-_Your_Mother_Should_Know
-0.00s: A
+0.00s: C#m
 0.09s: C#m
 0.19s: C#m
 0.28s: C

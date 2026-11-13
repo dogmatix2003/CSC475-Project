@@ -1,5 +1,5 @@
 CD2_-_07_-_Long_Long_Long
-0.00s: D
+0.00s: F#m
 0.09s: F#m
 0.19s: F#m
 0.28s: C
